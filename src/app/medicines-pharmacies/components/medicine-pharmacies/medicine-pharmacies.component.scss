@@ -1,0 +1,74 @@
+$search-icon-color: #4B4B4B;
+
+.medicine-pharmacies-dialog {
+    
+    >div {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        padding: 15px 20px;
+
+        h4 {
+            margin: 0;
+            margin-bottom: 20px;
+        }
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .item {
+
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+    }
+
+    .footer {
+        display: flex;
+        margin-top: 30px;
+        justify-content: flex-end;
+    }
+}
+
+virtual-scroller {
+    width: 100%;
+    height: 50vh;
+
+    span {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        height: 30px;
+    }
+}
+
+.search {
+    margin-bottom: 20px;
+
+    >div {
+        display: inline-block;
+        position: relative;
+        color: $search-icon-color;
+
+        >i {
+            top: 3px;
+            position: absolute;
+            right: 4px;
+            font-size: 1em;
+        }
+    }
+}
+
+p-progressSpinner {
+    position: absolute;
+    left: 45%;
+    top: 20%;
+    z-index: 1000;
+}

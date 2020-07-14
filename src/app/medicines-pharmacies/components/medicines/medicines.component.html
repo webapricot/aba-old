@@ -1,0 +1,172 @@
+<div class="medicines-container">
+    <p-progressSpinner *ngIf="loading"></p-progressSpinner>
+    <p-table #table class="table" [paginator]="true" [rows]="10" [value]="data.medicines" editMode="row" dataKey="id" [columns]="cols"
+                            [lazy]="true" (onLazyLoad)="loadMedicines($event)" [totalRecords]="totalRecords">
+        <ng-template pTemplate="caption">
+            <div class="medicines-header">
+                <div class="first-child">
+                    <p style="margin: 0;">{{ words.title_medicine }}</p>
+                </div>
+                <div class="second-child">
+                    <div class="text-icon">
+                        <p>{{ words.add }}</p>
+                        <img style="cursor: pointer;" (click)="addNewRow()" src="assets/plus-circle.png">
+                    </div>
+                    <div class="text-icon">
+                        <p>Excel</p>
+                        <img src="assets/file-import.png">
+                    </div>
+                    <div class="text-icon">
+                        <p>Excel</p>
+                        <img src="assets/file-export.png" (click)="exportExcel()">
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr class="table-header">
+                <th [pSortableColumnDisabled]="i >= cols.length - 3" [pSortableColumn]="col.sortField" *ngFor="let col of cols; index as i">
+                    {{ col.header }}
+                    <p-sortIcon *ngIf="i < cols.length - 3" [field]="col.sortField" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+                <th style="text-align: center; padding: 0.571em 0.857em;">
+                    <p-button label="Reset" (click)="resetForms()"></p-button>
+                </th>
+            </tr>
+            <tr class="table-filter">
+                <th *ngFor="let col of cols" [ngSwitch]="col.inputType">
+                    <input [(ngModel)]="filtersObj[col.filterField]" style="width: 100%;" (input)="onFilterValueChange($event.target.value, col.filterField)" pInputText type="text" *ngSwitchCase="'text'">
+                    <div>
+                        <p-multiSelect (onChange)="onFilterValueChange($event.value, col.filterField)" defaultLabel="Ընտրել" *ngSwitchCase="'multiselect'" [options]="data[col.field]" [(ngModel)]="filtersObj[col.filterField]"></p-multiSelect>
+                    </div>
+                    <p-calendar [(ngModel)]="filtersObj[col.filterField]" (onSelect)="onFilterValueChange($event, col.filterField)" (onClearClick)="onFilterValueChange(null, col.filterField)" placeholder="Ընտրել" *ngSwitchCase="'date'" [showButtonBar]="true" styleClass="ui-column-filter" [readonlyInput]="true" dateFormat="dd/mm/yy"></p-calendar>
+                </th>
+                <th style="width: 70px;">
+                    <p-button (click)="filterGLobal()" [label]="words.filter"></p-button>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-medicine let-editing="editing" let-ind="rowIndex">
+            <tr [pEditableRow]="medicine" class="editable-medicine">
+                <td *ngFor="let col of cols" style="position: relative;">
+                    <p-cellEditor [ngSwitch]="col.editInputType">
+                        <ng-template pTemplate="input">
+                            <div [ngClass]="{'required-input' : medicine.title.label === '' && col.field === 'name'}" *ngSwitchCase="'text'">
+                                <input required pInputText type="text" [(ngModel)]="medicine.title.label">
+                            </div>
+                            <div *ngSwitchCase="'multiselect'" [ngClass]="{'add-item' : col.field === 'manufacturers' || col.field === 'affectiveMaterials'}">
+                                <p-multiSelect (onChange)="onMultiselectChange(medicine)"  [options]="data[col.field]" [(ngModel)]="medicine[col.editableDataField]" defaultLabel="Ընտրել">
+                                </p-multiSelect>
+                                <img style="cursor: pointer;" (click)="addItem(col.field)" src="assets/plus-circle.png" *ngIf="col.field === 'affectiveMaterials'">
+                            </div>
+
+                            <div *ngSwitchCase="'select'" [ngClass]="{'add-item' : col.field === 'manufacturers' || col.field === 'affectiveMaterials'}">
+                                <p-dropdown [ngClass]="{'invalid-dropdown' : !medicine[col.dataField].value}" required (onChange)="onSelectChange(col.dataField, medicine)" [options]="data[col.field]" [(ngModel)]="medicine[col.dataField].value" placeholder="Ընտրել"></p-dropdown>
+                                <img style="cursor: pointer;" (click)="addItem(col.field)" src="assets/plus-circle.png" *ngIf="col.field === 'manufacturers'">
+
+                            </div>
+                            <div *ngSwitchCase="'date'">
+                                <p-calendar required (onSelect)="onExpirationDateChanged(medicine)" [showButtonBar]="true" styleClass="ui-column-filter" placeholder="Ընտրել" [readonlyInput]="true" [(ngModel)]="medicine[col.dataField]" dateFormat="dd/mm/yy"></p-calendar>
+                            </div>
+
+                            <div #medicinePharmacy [ngClass]="{'medicines-pharmacies-focused' : show_medicine_pharmacies}" *ngSwitchCase="'custom'" class="medicines-pharmacies" (click)="openMedicinePharmacies(medicine)">
+                                <span>
+                                    <img (click)="showMedicinePharmacies(medicine)" style="cursor: pointer;" src="assets/plus.png">
+                                </span>
+                                <div class="icon">
+                                    <i class="pi pi-chevron-down"></i>
+                                </div>
+
+                            </div>
+
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            <div *ngIf="col.field === 'pharmacies'" class="medicine-pharmacies">
+                                <img (click)="openMedicinePharmacies(medicine)" style="cursor: pointer;" src="assets/plus.png">
+                                <i style="cursor: pointer;" (click)="showPharmaciesByMedicine([medicine.id])" class="pi pi-eye"></i>
+                            </div>
+                            <div class="pharmacies_show" *ngIf="medicine.show_pharmacies && col.field === 'pharmacies'">
+                                <div>
+                                    <h4>{{ words.pharmacy_name }}</h4>
+                                    <span *ngFor="let pharmacy of medicine.pharmacies">
+                                        {{ pharmacy.title }}
+                                    </span>
+                                </div>
+                                <div>
+                                    <h4>{{ words.pharmacy_date }}</h4>
+                                    <span *ngFor="let pharmacy of medicine.pharmacies">
+                                        {{ pharmacy.pivot.last_checked_date }}
+                                    </span>
+                                </div>
+                            </div>
+                            <span *ngIf="col.dataField === 'expiration_date'">
+                                {{ medicine[col.dataField] | date:'shortDate' }}
+                            </span>
+                            <span *ngIf="col.dataField === '_affective_materials'">
+                                {{ medicine[col.dataField] }}
+                            </span>
+                            <span *ngIf="col.dataField !== '_affective_materials'">
+                                {{ medicine[col.dataField] ? (medicine[col.dataField].label ? medicine[col.dataField].label : '') : '' }}
+                            </span>
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="text-align: center; user-select: none;">
+                    <img [ngStyle]="{'pointer-events' : ((createRow || editRow) ? 'none' : 'auto')}" class="rowEditInit" pInitEditableRow *ngIf="!editing" src="assets/edit.png" style="cursor: pointer;" (click)="onRowEditInit(medicine)">
+                    <button [ngStyle]="{'pointer-events' : (medicine.title.label === '' || medicine.manufacturer.label === '' || medicine.location.label === '' || medicine.license.label === '' || medicine.medicine_type.label === '') ? 'none' : 'auto'}" style="margin-right: .5em" *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(medicine)" class="ui-button-success"></button>
+                    <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(medicine, ind)" class="ui-button-danger"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [style]="{width: '500px'}" [header]="words.new_manufacturer" [(visible)]="showManufacturerCreateModal" [modal]="true" [draggable]="false" [resizable]="false">
+    <form [formGroup]="manufacturerFormGroup">
+        <div class="new-manufacturer">
+            <h3>{{ words.new_manufacturer_name }}</h3>
+            <input type="text" pInputText formControlName="name">
+            <h3>{{ words.new_manufacturer_description }}</h3>
+            <textarea pInputTextarea formControlName="description"></textarea>
+        </div>
+        <p-footer>
+            <button [disabled]="manufacturerFormGroup.invalid" type="button" pButton icon="pi pi-check" (click)="showManufacturerCreateModal=false; manufacturerSave()" [label]="words.button_save" style="margin-right: 10px;"></button>
+            <button type="button" pButton icon="pi pi-times" (click)="showManufacturerCreateModal=false; manufacturerFormGroup.reset()" [label]="words.button_cancel" class="ui-button-secondary"></button>
+        </p-footer>
+    </form>
+</p-dialog>
+
+<p-dialog [style]="{width: '500px'}" [header]="words.new_affective_material" [(visible)]="showAffectiveMaterialCreateModal" [modal]="true" [draggable]="false" [resizable]="false">
+    <form [formGroup]="affectiveMaterialFormGroup">
+        <div class="new-manufacturer">
+            <h3>{{ words.new_affective_material_name }}</h3>
+            <input type="text" pInputText formControlName="title">
+            <h3>{{ words.new_affective_material_description }}</h3>
+            <textarea pInputTextarea formControlName="description"></textarea>
+        </div>
+        <p-footer>
+            <button [disabled]="affectiveMaterialFormGroup.invalid" type="button" pButton icon="pi pi-check" (click)="showAffectiveMaterialCreateModal=false; affectiveMaterialSave()" [label]="words.button_save" style="margin-right: 10px;"></button>
+            <button type="button" pButton icon="pi pi-times" (click)="showAffectiveMaterialCreateModal=false; affectiveMaterialFormGroup.reset()" [label]="words.button_cancel" class="ui-button-secondary"></button>
+        </p-footer>
+    </form>
+</p-dialog>
+
+<p-toast></p-toast>
+
+<!-- <p-dialog [style]="{width: '500px'}" [header]="words.title_pharmacy" [(visible)]="show_medicine_pharmacies" [modal]="true" [draggable]="false" [resizable]="false">
+    <div>
+        <div class="header">
+            <h4>{{ words.choose_pharmacies }}</h4>
+            <h4>{{ words.choose_last_check_date }}</h4>
+        </div>
+        <div>
+            <virtual-scroller #scroll [items]="data.pharmacies">
+                <span *ngFor="let pharmacy of scroll.viewPortItems">
+                    <p-checkbox name="group" [label]="pharmacy.label" [value]="pharmacy.id" [(ngModel)]="medicine.medicine_pharmacies[pharmacy.pivot_key]">
+                    </p-checkbox>
+                    <input type="date">
+                </span>
+            </virtual-scroller>
+        </div>
+    </div>
+</p-dialog> -->

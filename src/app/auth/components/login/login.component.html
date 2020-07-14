@@ -1,0 +1,13 @@
+<div class="login-container">
+    <form [formGroup]="signInForm">
+        <div class="p-field">
+            <label for="fieldId">Email</label>
+            <input formControlName="email" type="text" pInputText> 
+        </div>
+        <div class="p-field">
+            <label for="fieldId">Password</label>
+            <input formControlName="password" type="password" pInputText> 
+        </div>
+        <p-button label="Sign in" (click)="signIn()"></p-button>
+    </form>
+</div>

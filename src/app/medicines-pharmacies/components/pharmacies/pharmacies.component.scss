@@ -1,0 +1,295 @@
+$background-light: #F6FBFA;
+$text-color: #3957A0;
+$th-background: #E8EDEC;
+$search-icon-color: #4B4B4B;
+
+@media only screen and (min-width: 992px) {
+
+    .pharmacies-container {
+        position: relative;
+
+        .table {
+
+            .pharmacies-header {
+                display: flex;
+                margin: 0;
+                align-items: center;
+                text-align: left;
+                width: 100%;
+                height: 55px;
+                padding: 13px 17px 13px 28px;
+                color: $text-color;
+                background-color: $background-light;
+
+                .first-child {
+                    width: 40%;
+                }
+
+                .second-child {
+                    width: 60%;
+                    display: flex;
+
+                    .text-icon {
+                        display: flex;
+                        align-items: center;
+                        flex-grow: 1;
+                        
+                        p {
+                            margin: 0 10px 0 0;
+                        }
+                    }
+
+                    .search-tablet {
+                        flex-grow: 3;
+
+                        >div {
+                            display: inline-block;
+                            position: relative;
+                            color: $search-icon-color;
+        
+                            >i {
+                                top: 3px;
+                                position: absolute;
+                                right: 4px;
+                                font-size: 1em;
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            .search-mobile {
+                display: none;
+            }
+
+            .table-header {
+                
+                th {
+                    text-align: left;
+                    border: 0;
+                    // background-color: $th-background;
+                    padding: 18px 0;
+                    
+                    p-sortIcon {
+                        font-size: 10px;
+                        margin-left: 5px;
+                    }
+                }
+            }
+
+            .table-filter {
+                .add-item {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    p-multiselect {
+                        width: 80%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .pharmacies-container {
+        position: relative;
+        
+        .table {
+
+            .pharmacies-header-mobile {
+                display: none;
+            }
+
+            .pharmacies-header {
+                display: flex;
+                margin: 0;
+                align-items: center;
+                text-align: left;
+                width: 100%;
+                height: 55px;
+                padding: 13px 17px 13px 28px;
+                color: $text-color;
+                background-color: $background-light;
+
+                .first-child {
+                    width: 40%;
+                }
+                
+                .second-child {
+                    width: 60%;
+                    display: flex;
+
+                    .text-icon {
+                        display: flex;
+                        align-items: center;
+                        flex-grow: 1;
+                    }
+
+                    p {
+                        display: none;
+                    }
+
+                    .search-tablet {
+                        flex-grow: 3;
+
+                        >div {
+                            display: inline-block;
+                            position: relative;
+                            color: $search-icon-color;
+        
+                            >i {
+                                top: 3px;
+                                position: absolute;
+                                right: 4px;
+                                font-size: 1em;
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            .search-mobile {
+                display: none;
+            }
+            
+            .table-header {
+                
+                th {
+                    text-align: left;
+                    border: 0;
+                    // background-color: $th-background;
+                    padding: 18px 0;
+                    
+                    p-sortIcon {
+                        font-size: 10px;
+                        margin-left: 5px;
+                    }
+                }
+            }
+            
+            .table-filter {
+                .add-item {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    p-multiselect {
+                        width: 80%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .pharmacies-container {
+        position: relative;
+
+        .table {
+
+            .pharmacies-header {
+                display: flex;
+                margin: 0;
+                align-items: center;
+                text-align: left;
+                width: 100%;
+                height: 55px;
+                padding: 13px 17px 13px 28px;
+                color: $text-color;
+                background-color: $background-light;
+
+                .first-child {
+                    width: 40%;
+                }
+                
+                .second-child {
+                    width: 60%;
+                    display: flex;
+
+                    .text-icon {
+                        display: flex;
+                        align-items: center;
+                        flex-grow: 1;
+                    }
+
+                    p {
+                        display: none;
+                    }
+
+                    .search-tablet {
+                        display: none;
+                    }
+
+                }
+            }
+
+            .search-mobile {
+                display: block;
+                color: $search-icon-color;
+                background-color: $background-light;
+
+                >div {
+                    display: inline-block;
+                    position: relative;
+
+                    >i {
+                        top: 3px;
+                        position: absolute;
+                        right: 4px;
+                        font-size: 1em;
+                    }
+                }
+            }
+            
+            .table-header {
+                
+                th {
+                    text-align: left;
+                    border: 0;
+                    // background-color: $th-background;
+                    padding: 18px 0;
+                    
+                    p-sortIcon {
+                        font-size: 10px;
+                        margin-left: 5px;
+                    }
+                }
+            }
+
+            .table-filter {
+                .add-item {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    p-multiselect {
+                        width: 80%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.new-manufacturer {
+    input, textarea {
+        width: 100%;
+    }
+}
+
+.multiselect-output {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+p-progressSpinner {
+    position: absolute;
+    z-index: 1000;
+    left: 45%;
+    top: 45%;
+}

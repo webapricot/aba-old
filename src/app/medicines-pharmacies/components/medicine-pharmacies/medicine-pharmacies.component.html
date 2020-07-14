@@ -1,0 +1,35 @@
+<div class="medicine-pharmacies-dialog" #medicine_pharmacies_container>
+    <div>
+        <div class="header">
+            <h4>{{ words.choose_pharmacies }}</h4>
+            <h4>{{ words.choose_last_check_date }}</h4>
+        </div>
+        <div class="search">
+            <div>
+                <i class="pi pi-search"></i>
+                <input (input)="onSearchInputChange($event)" type="search" [placeholder]="words.search">
+            </div>
+        </div>
+        <div>
+            <form [formGroup]="medicine_pharamcies_form">
+                <div formArrayName="_pharmacies">
+                    <virtual-scroller #scroll [items]="pharmacies">
+                        <p-progressSpinner *ngIf="loading"></p-progressSpinner>
+                        <span class="item" *ngFor="let pharmacy of scroll.viewPortItems; index as i">
+                            <form [formGroup]="pharamaciesFormArray.controls[pharmacy.id - 1]">
+                                <p-checkbox (onChange)="onInputChange(pharmacy.id, pharamaciesFormArray.controls[pharmacy.id - 1], $event); onCheckboxChanged(pharmacy.id, pharamaciesFormArray.controls[pharmacy.id - 1])" formControlName="id" [label]="pharmacy.title + ' ' + pharmacy.address" [binary]="true">
+                                </p-checkbox>
+                                <input (change)="onInputChange(pharmacy.id, pharamaciesFormArray.controls[pharmacy.id - 1])" type="date" formControlName="lastCheckedDate">
+                            </form>
+                        </span>
+                    </virtual-scroller>
+                </div>
+                <div class="footer">
+                    <button (click)="medicinePharmaciesSave()" type="button" pButton icon="pi pi-check" [label]="words.button_save" style="margin-right: 10px;"></button>
+                    <button type="button" pButton icon="pi pi-times" [label]="words.button_cancel" class="ui-button-secondary"></button>
+                </div>
+            </form>
+            <button (click)="f()">test</button>
+        </div>
+    </div>
+</div>

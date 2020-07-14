@@ -1,0 +1,32 @@
+<div class="component-container">
+    <div class="header">
+        <div class="images">
+            <img src="assets/logo.png">
+            <img src="assets/ABA-Reference.png">
+        </div>
+        <ul class="chapters">
+            <li>{{ words.pages[0].label }}</li>
+            <li>{{ words.pages[1].label }}</li>
+            <li>{{ words.pages[2].label }}</li>
+            <li><p-button [label]="words.sign_out" styleClass="ui-button-secondary"></p-button></li>
+        </ul>
+    </div>
+
+    <div class="mobile-tablet-header">
+        <div class="images">
+            <img src="assets/logo.png" class="logo">
+            <img src="assets/ABA-Reference.png" class="aba-reference">
+        </div>
+        <p-dropdown [options]="pages"></p-dropdown>
+    </div>
+
+    <div class="medicines">
+        <app-medicines></app-medicines>
+    </div>
+    <div class="pharmacies">
+        <app-pharmacies></app-pharmacies>
+    </div>
+    <div>
+        <button (click)="f()">test</button>
+    </div>
+</div>

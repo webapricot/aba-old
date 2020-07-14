@@ -1,0 +1,194 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~primeicons/primeicons.css";
+@import "~primeng/resources/themes/nova-dark/theme.css";
+@import "~primeng/resources/primeng.min.css";
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance:none;
+}
+
+body, html {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body .ui-table .ui-table-caption {
+    border: 0;
+    padding: 0;
+}
+
+.p-grid > [class*='p-col'] {
+    padding: 0;
+}
+
+body .ui-multiselect {
+    width: 100%;
+}
+
+body .ui-datepicker:not(.ui-datepicker-inline) {
+    width: 200%;
+    top: 100% !important;
+}
+
+body .ui-paginator .ui-dropdown {
+    margin-left: 0.5em;
+    height: 2.286em;
+    min-width: auto;
+    float: left;
+}
+
+body .required-input .ui-inputtext {
+    border: 1px solid #a80000;
+}
+
+body .invalid-dropdown .ui-dropdown{
+    border: 1px solid #a80000;
+}
+
+body .invalid-multiselect .ui-multiselect {
+    border: 1px solid #a80000;
+}
+
+// Medicines container
+
+body .medicines-container .ui-table-wrapper table {
+    min-width: 1160px;
+}
+
+body .medicines-container .ui-table-wrapper table.ui-datepicker-calendar {
+    min-width: 100% !important;
+}
+
+body .medicines-container .ui-table-wrapper {
+    overflow: scroll;
+    max-height: 400px;
+}
+
+body .medicines-container .ui-table-wrapper table thead tr:nth-child(1) th {
+    position: sticky;
+    top: -1px;
+    z-index: 2;
+}
+
+body .medicines-container .ui-table-wrapper table thead tr:first-child th {
+    padding-left: 15px !important;
+}
+
+body .medicines-container .ui-datepicker:not(.ui-datepicker-inline) {
+    width: 300%;
+    top: 100% !important;
+}
+
+body .medicines-container p-calendar .ui-column-filter .ui-inputtext {
+    width: 100%;
+}
+
+body .medicines-container p-celleditor p-dropdown .ui-dropdown {
+    display: block;
+    min-width: 100% !important;
+}
+
+body .medicines-container p-celleditor .ui-inputtext {
+    width: 100%;
+}
+
+@media only screen and (max-width: 1880px) {
+    body .medicines-container .ui-multiselect .ui-multiselect-panel {
+        min-width: 150%;
+    }
+}
+
+
+// Pharmacies container
+
+body .pharmacies-container .ui-table-wrapper table {
+    min-width: 1160px;
+}
+
+body .pharmacies-container .ui-table-wrapper table.ui-datepicker-calendar {
+    min-width: 100% !important;
+}
+
+body .pharmacies-container .ui-table-wrapper {
+    overflow: scroll;
+    max-height: 400px;
+}
+
+body .pharmacies-container .ui-table-wrapper table thead tr:nth-child(1) th {
+    position: sticky;
+    top: -1px;
+    z-index: 2;
+}
+
+body .pharmacies-container .ui-table-wrapper table thead tr:first-child th {
+    padding-left: 15px !important;
+}
+
+body .pharmacies-container .ui-datepicker:not(.ui-datepicker-inline) {
+    width: 300%;
+    top: 100% !important;
+}
+
+body .pharmacies-container p-calendar .ui-column-filter .ui-inputtext {
+    width: 100%;
+}
+
+body .pharmacies-container p-celleditor p-dropdown .ui-dropdown {
+    display: block;
+    min-width: 100% !important;
+}
+
+body .pharmacies-container p-celleditor .ui-inputtext {
+    width: 100%;
+}
+
+@media only screen and (max-width: 1880px) {
+    body .pharmacies-container .ui-multiselect .ui-multiselect-panel {
+        min-width: 150%;
+    }
+}
+
+body .pharmacies-container {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+    .customer-badge {
+        border-radius: 2px;
+        padding: .25em .5em;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: .3px;
+
+        &.type-red {
+            background-color: red;
+            color:white;
+        }
+
+        &.type-black {
+            background-color: black;
+            color: white;
+        }
+
+        &.type-green {
+            background-color: green;
+            color: white;
+        }
+
+        &.type-purple {
+            background-color: purple;
+            color: white;
+        }
+
+        &.type-yellow {
+            background-color: yellowgreen;
+            color: white;
+        }
+    }
+}
+
+body .ui-dialog .ui-dialog-content {
+    height: 100%;
+}

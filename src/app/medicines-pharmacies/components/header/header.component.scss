@@ -1,0 +1,120 @@
+@media only screen and (min-width: 1025px) {
+    .component-container {
+        width: 100%;
+        background-color: #D4D4D4;
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 90px;
+            background-color: #F6FBFA;
+            padding: 0 100px;
+            margin-bottom: 35px;
+            
+            .chapters {
+                list-style-type: none;
+                display: flex;
+                align-items: center;
+                
+                li {
+                    margin: 0 10px;
+                }
+            }
+
+            .images {
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        .mobile-tablet-header {
+            display: none;
+        }
+
+        .medicines {
+            padding: 0 70px;
+        }
+
+        .pharmacies {
+            padding: 0 70px;
+        }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .component-container {
+        width: 100%;
+        background-color: #D4D4D4;
+
+        .mobile-tablet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 90px;
+            background-color: #F6FBFA;
+            padding: 0 100px;
+            margin-bottom: 35px;
+
+            .images {
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        .header {
+            display: none;
+        }
+
+        .medicines {
+            padding: 0 70px;
+        }
+        
+        .pharmacies {
+            padding: 0 70px;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .component-container {
+        width: 100%;
+        background-color: #D4D4D4;
+
+        .mobile-tablet-header {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            height: 130px;
+            background-color: #F6FBFA;
+            padding: 10px 0;
+            margin-bottom: 35px;
+
+            .images {
+                display: flex;
+                align-items: center;
+            }
+
+            .logo {
+                width: 50px;
+            }
+
+            .aba-reference {
+                width: 200px;
+            }
+        }
+
+        .header {
+            display: none;
+        }
+
+        .medicines {
+            padding: 0 50px;
+        }
+
+        .pharmacies {
+            padding: 0 50px;
+        }
+    } 
+}
